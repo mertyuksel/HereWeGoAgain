@@ -32,7 +32,7 @@ namespace Entities
         }
 
         public DbSet<Movie> Movies { get; set; }
-        public DbSet<Person> Accounts { get; set; }
+        public DbSet<Person> Persons { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<MoviePerson> MoviePersons { get; set; }
     }

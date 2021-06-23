@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
+    [Table("genre")]
     public class Genre
     {
-        public Guid Id { get; set; }
+        public Guid GenreId { get; set; }
         public string Title { get; set; }
 
     }

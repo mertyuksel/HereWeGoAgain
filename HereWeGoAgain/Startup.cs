@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using HereWeGoAgain.Extensions;
 
 namespace HereWeGoAgain
 {
@@ -29,15 +30,9 @@ namespace HereWeGoAgain
         {
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "HereWeGoAgain", Version = "v1" });
-            });
 
+            services.ConfigureMySqlContext(Configuration);
 
-            services.AddDbContext<RepositoryContext>(o => o.UseMySql(
-                Configuration["mysqlconnection:connectionString"],
-                MySqlServerVersion.LatestSupportedServerVersion));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -45,8 +40,6 @@ namespace HereWeGoAgain
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "HereWeGoAgain v1"));
             }
 
             app.UseHttpsRedirection();
