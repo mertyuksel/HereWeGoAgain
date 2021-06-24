@@ -8,7 +8,6 @@ C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\HereWeG
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\ref\HereWeGoAgain.dll
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\HereWeGoAgain.pdb
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\HereWeGoAgain.Views.dll
-C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\HereWeGoAgain.Views.pdb
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
@@ -31,18 +30,10 @@ C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\HereWeG
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\HereWeGoAgain.csproj.CoreCompileInputs.cache
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\HereWeGoAgain.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\HereWeGoAgain.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\HereWeGoAgain.RazorAssemblyInfo.cache
-C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\HereWeGoAgain.RazorAssemblyInfo.cs
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\staticwebassets\HereWeGoAgain.StaticWebAssets.Manifest.cache
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\staticwebassets\HereWeGoAgain.StaticWebAssets.xml
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\scopedcss\bundle\HereWeGoAgain.styles.css
-C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\HereWeGoAgain.TagHelpers.input.cache
-C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\HereWeGoAgain.TagHelpers.output.cache
-C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\HereWeGoAgain.RazorCoreGenerate.cache
-C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\HereWeGoAgain.RazorTargetAssemblyInfo.cache
-C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\HereWeGoAgain.RazorTargetAssemblyInfo.cs
-C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\HereWeGoAgain.Views.pdb
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\HereWeGoAgain.csproj.CopyComplete
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\HereWeGoAgain.dll
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\ref\HereWeGoAgain.dll

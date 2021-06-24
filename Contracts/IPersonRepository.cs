@@ -10,6 +10,7 @@ namespace Contracts
     public interface IPersonRepository : IRepositoryBase<Person>
     {
         public IEnumerable<Person> GetAllPersons();
+        public Person GetOwnerById(Guid personId);
 
     }
 }

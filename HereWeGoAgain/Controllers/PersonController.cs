@@ -51,5 +51,53 @@ namespace HereWeGoAgain.Controllers
 
             return Ok(ahshitherewegoagain);
         }
+
+
+        [HttpGet("{id}")]  // [HttpGet("{id}", Name = "OwnerById")]
+        public IActionResult GetPersonById(Guid id)
+        {
+            var owner = _repository.Person.GetOwnerById(id);
+            if (owner == null)
+            {
+                return NotFound();
+            }
+            return Ok(owner);
+        }
+
+
+        [HttpPost]
+        public IActionResult CreatePerson([FromBody] Person person)
+        {
+            try
+            {
+                if (person == null)
+                {
+                    return BadRequest("person object is null");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("invalid model object");
+                }
+
+                _repository.Person.Create(person);
+                _repository.Save();
+
+                var ahshitherewegoagain = _repository.Person.GetAllPersons();
+
+                return Ok(ahshitherewegoagain);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+
+
+
+        }
+
+
+
+
     }
 }

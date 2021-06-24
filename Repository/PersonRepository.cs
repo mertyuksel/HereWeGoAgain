@@ -24,6 +24,13 @@ namespace Repository
                 .ToList();
         }
 
+        public Person GetOwnerById(Guid personId)
+        {
+            return FindByCondition(person => person.PersonId.Equals(personId))
+                .FirstOrDefault();
+        }
+
+
 
     }
 }
