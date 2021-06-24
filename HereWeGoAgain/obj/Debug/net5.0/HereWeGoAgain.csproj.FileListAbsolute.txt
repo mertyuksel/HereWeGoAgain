@@ -8,6 +8,8 @@ C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\HereWeG
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\ref\HereWeGoAgain.dll
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\HereWeGoAgain.pdb
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\HereWeGoAgain.Views.dll
+C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\AutoMapper.dll
+C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
@@ -21,8 +23,10 @@ C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\Swashbu
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\Contracts.dll
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\Entities.dll
+C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\Repository.dll
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\Contracts.pdb
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\Entities.pdb
+C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\Repository.pdb
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\HereWeGoAgain.csproj.AssemblyReference.cache
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\HereWeGoAgain.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\HereWeGoAgain.AssemblyInfoInputs.cache
@@ -39,5 +43,3 @@ C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\HereWeG
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\ref\HereWeGoAgain.dll
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\HereWeGoAgain.pdb
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\HereWeGoAgain.genruntimeconfig.cache
-C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\Repository.dll
-C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\Repository.pdb

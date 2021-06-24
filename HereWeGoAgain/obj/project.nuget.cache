@@ -1,9 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "2MuwBT2f4oJ4Rr8RcijkHCvHK2J96KkVavOEJpxuBRADtXXoskBlT9TBllBpVk3hrsQbQa616hyE9thAejVajA==",
+  "dgSpecHash": "lwS4BantFOfqULSIULPsW1i0ijqKOPUfO+OX9ZgStgymoPJdWYZE51GPo0efDPqA4ly0uopqIEvOt+T+PqHZvA==",
   "success": true,
   "projectFilePath": "C:\\Users\\mertyuksel\\Desktop\\HereWeGoAgain\\HereWeGoAgain\\HereWeGoAgain.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\mertyuksel\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
+    "C:\\Users\\mertyuksel\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
+    "C:\\Users\\mertyuksel\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\mertyuksel\\.nuget\\packages\\microsoft.entityframeworkcore\\5.0.7\\microsoft.entityframeworkcore.5.0.7.nupkg.sha512",
     "C:\\Users\\mertyuksel\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\5.0.7\\microsoft.entityframeworkcore.abstractions.5.0.7.nupkg.sha512",
     "C:\\Users\\mertyuksel\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\5.0.7\\microsoft.entityframeworkcore.analyzers.5.0.7.nupkg.sha512",
@@ -27,7 +30,8 @@
     "C:\\Users\\mertyuksel\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512",
     "C:\\Users\\mertyuksel\\.nuget\\packages\\system.collections.immutable\\5.0.0\\system.collections.immutable.5.0.0.nupkg.sha512",
     "C:\\Users\\mertyuksel\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
-    "C:\\Users\\mertyuksel\\.nuget\\packages\\system.diagnostics.diagnosticsource\\5.0.1\\system.diagnostics.diagnosticsource.5.0.1.nupkg.sha512"
+    "C:\\Users\\mertyuksel\\.nuget\\packages\\system.diagnostics.diagnosticsource\\5.0.1\\system.diagnostics.diagnosticsource.5.0.1.nupkg.sha512",
+    "C:\\Users\\mertyuksel\\.nuget\\packages\\system.reflection.emit\\4.7.0\\system.reflection.emit.4.7.0.nupkg.sha512"
   ],
   "logs": []
 }

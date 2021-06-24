@@ -35,7 +35,7 @@ namespace HereWeGoAgain
 
             services.ConfigureRepositoryWrapper();
 
-
+            services.AddAutoMapper(typeof(Startup));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

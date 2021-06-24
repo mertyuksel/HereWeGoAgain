@@ -1,5 +1,7 @@
-﻿using Contracts;
+﻿using AutoMapper;
+using Contracts;
 using Entities;
+using Entities.DataTransferObjects;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,56 +19,72 @@ namespace HereWeGoAgain.Controllers
     {
         private RepositoryContext _context;
         private IRepositoryWrapper _repository;
+        private IMapper _mapper;
 
-
-        public PersonController(RepositoryContext context, IRepositoryWrapper repository)
+        public PersonController(RepositoryContext context,
+            IRepositoryWrapper repository,
+            IMapper mapper)
         {
             _context = context;
             _repository = repository;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public IActionResult GetAllPersons()
+        public IActionResult GetAllPeople()
         {
-            // var m = _context.Persons.FirstOrDefault(s => s.Name == "Leonardo DiCaprio");
-            // var movie = _context.MoviePersons.FirstOrDefault(s => s.Person.Name == "Leonardo DiCaprio");
+            try
+            {
+                var people = _repository.Person.GetAllPersons();
 
-            // var test = new PersonRepository(_context);
-            // var movies = test.GetAllPersons();
+                var peopleResult = _mapper.Map<IEnumerable<PersonDto>>(people);
 
-
-            /* 
-            var _repository = new RepositoryWrapper(_context); // interface ile dene 
-            
-           // testing equals testing2
-            var testing = _repository.Person.FindAll()
-                .OrderBy(ow => ow.Name)
-                .ToList();
-
-            var testing2 = _repository.Person.GetAllPersons();
-            */
-
-
-            var ahshitherewegoagain  = _repository.Person.GetAllPersons();
-
-            return Ok(ahshitherewegoagain);
+                return Ok(peopleResult);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal server error");
+            }
         }
-
 
         [HttpGet("{id}")]  // [HttpGet("{id}", Name = "OwnerById")]
         public IActionResult GetPersonById(Guid id)
         {
-            var owner = _repository.Person.GetOwnerById(id);
-            if (owner == null)
+            var person = _repository.Person.GetPersonById(id);
+            if (person == null)
             {
                 return NotFound();
             }
-            return Ok(owner);
+
+            return Ok(person);
         }
 
+        [HttpGet("{id}/movie")]
+        public IActionResult GetPersonWithDetails(Guid id)
+        {
+            var person = _repository.Movie.FindByCondition(t => t.MoviePersons.Any(mp => mp.PersonId == id))
+                 .Include(t => t.MoviePersons)
+                 .Select(t => new { 
+                 t.Title,
+                 t.Year
+                 })
+                 .ToList();
+           
+            if (person == null)
+            {
+                return NotFound();
+            }
 
+            //var movies = person.MoviePersons.Select(t => t.Movie.Title).ToList();
+
+            // TODO: GET MOVIES BY PERSON ID
+
+            return Ok(person);
+        }
+
+        // NOT COMPLETE 
         [HttpPost]
-        public IActionResult CreatePerson([FromBody] Person person)
+        public IActionResult CreatePerson([FromBody] PersonForCreationDto person)
         {
             try
             {
@@ -80,24 +98,60 @@ namespace HereWeGoAgain.Controllers
                     return BadRequest("invalid model object");
                 }
 
-                _repository.Person.Create(person);
+                var personEntity = _mapper.Map<Person>(person);
+
+                _repository.Person.CreatePerson(personEntity);   
                 _repository.Save();
 
-                var ahshitherewegoagain = _repository.Person.GetAllPersons();
+                var people = _repository.Person.GetAllPersons();
 
-                return Ok(ahshitherewegoagain);
+                return Ok(people);
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(500, "Internal server error" + ex.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateOwner(Guid id, [FromBody] PersonForUpdateDto person)
+        {
+            try
+            {
+                if (person == null)
+                {
+                    return BadRequest("Owner object is null");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Invalid model object");
+                }
+
+                var personEntity = _repository.Person.GetPersonById(id);
+                if (personEntity == null)
+                {
+                    return NotFound();
+                }
+
+                // Q: 2 fielddan olusan dto gonderdigimde geri kalanlar null mi oluyor
+                // yoksa degismeden kaliyor mu ? 
+
+                // Dto da olmayan field degistirdiginde, o field'i map etmiyor
+                // yano db degismiyor. 
+                _mapper.Map(person, personEntity);
+
+                _repository.Person.UpdatePerson(personEntity);
+                _repository.Save();
+
+                return NoContent();
             }
             catch (Exception)
             {
                 return StatusCode(500, "Internal server error");
             }
-
-
-
         }
-
-
-
 
     }
 }
