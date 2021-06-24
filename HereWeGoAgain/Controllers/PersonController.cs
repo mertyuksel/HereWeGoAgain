@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using Contracts;
+using Entities;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +16,13 @@ namespace HereWeGoAgain.Controllers
     public class PersonController : ControllerBase
     {
         private RepositoryContext _context;
+        private IRepositoryWrapper _repository;
 
-        public PersonController(RepositoryContext context)
+
+        public PersonController(RepositoryContext context, IRepositoryWrapper repository)
         {
             _context = context;
+            _repository = repository;
         }
 
         [HttpGet]
@@ -30,16 +34,22 @@ namespace HereWeGoAgain.Controllers
             // var test = new PersonRepository(_context);
             // var movies = test.GetAllPersons();
 
+
+            /* 
             var _repository = new RepositoryWrapper(_context); // interface ile dene 
             
-            // testing equals testing2
+           // testing equals testing2
             var testing = _repository.Person.FindAll()
                 .OrderBy(ow => ow.Name)
                 .ToList();
 
             var testing2 = _repository.Person.GetAllPersons();
+            */
 
-            return Ok(testing2);
+
+            var ahshitherewegoagain  = _repository.Person.GetAllPersons();
+
+            return Ok(ahshitherewegoagain);
         }
     }
 }

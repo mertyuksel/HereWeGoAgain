@@ -33,6 +33,9 @@ namespace HereWeGoAgain
 
             services.ConfigureMySqlContext(Configuration);
 
+            services.ConfigureRepositoryWrapper();
+
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -12,5 +12,6 @@ namespace Contracts
         IMovieRepository Movie { get; }
         IGenreRepository Genre { get; }
         IMoviePersonRepository MoviePerson { get; }
+        void Save();
     }
 }
