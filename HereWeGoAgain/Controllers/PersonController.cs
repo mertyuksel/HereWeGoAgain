@@ -17,17 +17,94 @@ namespace HereWeGoAgain.Controllers
     [ApiController]
     public class PersonController : ControllerBase
     {
-        private RepositoryContext _context;
         private IRepositoryWrapper _repository;
         private IMapper _mapper;
+        private RepositoryContext _context;
 
-        public PersonController(RepositoryContext context,
-            IRepositoryWrapper repository,
-            IMapper mapper)
+        public PersonController(IRepositoryWrapper repository,
+            IMapper mapper,
+            RepositoryContext context)
         {
-            _context = context;
             _repository = repository;
             _mapper = mapper;
+            _context = context;
+
+        }
+
+
+        [HttpGet("test")]
+        public IActionResult JustTesting()
+        {
+            // _context.Movies:
+            // ToList() = many
+            // Single()
+            // Where()  = many 
+
+            // LINQ Query Syntax:
+            // LINQ Method Syntax:
+
+            // 1 
+            // normal modelden hepsini okumak. 
+            // var movies = _context.Movies.ToList();
+
+            // 2 
+            // single entity dondurur
+            // var movies = _context.Movies.Single(m => m.Title == "BadTrip");
+
+            // 3 
+            // kosullu veri almak
+            // var movies = _context.Movies.Where(m => m.Title.Contains("a")).ToList();
+
+            // 4
+            //var people = _repository.Person.FindByCondition(t => t.Role == "actor");
+
+            //var peopleTest = _context.Persons.Select(p => p.Role == "actor").ToList();
+
+
+
+            // 5
+            //    var testing = _context.Persons
+            //        .Select( p => new { eg = p.Role });
+            /*
+              OUTPUT: 
+                0	
+                eg:	"Uber Driver"
+                1	
+                eg:	"Actor"
+                2	
+                eg:	"Actor"
+                3	
+                eg:	"Actor"             
+             
+            */
+            /*
+            var testObject = _context.Persons.Where(p => p.Name.Contains("Leo")).Any(c => c.)
+                .Include(mp => mp.MoviePersons);
+            */
+
+
+            /*
+            var testObject = from person in _context.Persons
+                             where person.Role == "Actor"
+                             select person.PersonId;
+
+            var secondTestObject = _context.Persons
+                .Where(p => p.Role == "Uber Driver")
+                .Select(s => new { s.Role, s.PersonId, s.From });
+
+            var thirdTestObject = _context.Persons
+                .Where(p => p.Name.Contains("Leo"))
+                .Select(s => new { s.Name});
+            */
+
+
+            var justATest = _context.Persons
+                .Where(p => p.Name.Contains("Leo"))
+                .Select(s => s.MoviePersons);
+                
+
+
+            return Ok(justATest);
         }
 
         [HttpGet]
@@ -135,11 +212,6 @@ namespace HereWeGoAgain.Controllers
                     return NotFound();
                 }
 
-                // Q: 2 fielddan olusan dto gonderdigimde geri kalanlar null mi oluyor
-                // yoksa degismeden kaliyor mu ? 
-
-                // Dto da olmayan field degistirdiginde, o field'i map etmiyor
-                // yano db degismiyor. 
                 _mapper.Map(person, personEntity);
 
                 _repository.Person.UpdatePerson(personEntity);

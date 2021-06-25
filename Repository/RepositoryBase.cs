@@ -24,6 +24,8 @@ namespace Repository
 
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
         {
+            // readonly o yuzden asnotracting = no need to set up the change tracking information
+            // tracking yapmak zorunda olmadigi icin daha hizli calisiyor. 
             return this.RepositoryContext.Set<T>().Where(expression).AsNoTracking();
         }
 
