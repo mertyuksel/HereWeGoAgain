@@ -15,6 +15,8 @@ namespace HereWeGoAgain
             CreateMap<Person, PersonDto>();
             CreateMap<PersonForCreationDto, Person>();
             CreateMap<PersonForUpdateDto, Person>();
+            CreateMap<Person, PersonWithDetails>().PreserveReferences();
+
         }
     }
 }

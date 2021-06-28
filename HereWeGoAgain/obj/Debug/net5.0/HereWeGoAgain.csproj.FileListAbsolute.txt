@@ -43,3 +43,7 @@ C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\HereWeG
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\ref\HereWeGoAgain.dll
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\HereWeGoAgain.pdb
 C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\obj\Debug\net5.0\HereWeGoAgain.genruntimeconfig.cache
+C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\mertyuksel\Desktop\HereWeGoAgain\HereWeGoAgain\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
