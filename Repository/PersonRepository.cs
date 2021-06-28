@@ -17,8 +17,6 @@ namespace Repository
         {
 
         }
-
-        // DONE
         public IEnumerable<Person> GetAllPersons()
         {
             return FindAll()
@@ -26,20 +24,16 @@ namespace Repository
                 .ToList();
         }
 
-        // DONE
         public Person GetPersonById(Guid personId)
         {
             return FindByCondition(person => person.PersonId.Equals(personId))
                 .FirstOrDefault();
         }
 
-        // NOT COMPLETE
-        // HER KISININ YER ALDIGI FILMLERI DE PERSON DATASI ILE BERABER GETIRICEK 
-        public Person GetOwnerWithDetails(Guid personId)
+        public Person GetPersonWithDetails(Guid personId)
         {
-            // placeholder
-            return FindByCondition(person => person.PersonId.Equals(personId))
-                .FirstOrDefault();
+            return FindByCondition(t => t.MoviePersons.Any(t => t.PersonId == personId))
+                    .Include(x => x.MoviePersons).ThenInclude(x => x.Movie).FirstOrDefault();
         }
 
         public void CreatePerson(Person person)

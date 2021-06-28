@@ -18,17 +18,15 @@ using System.Threading.Tasks;
 // update person 
 // delete person 
 
-
-
 namespace HereWeGoAgain.Controllers
 {
     [Route("api/person")]
     [ApiController]
     public class PersonController : ControllerBase
     {
-        private IRepositoryWrapper _repository;
-        private IMapper _mapper;
-        private RepositoryContext _context;
+        private readonly IRepositoryWrapper _repository;
+        private readonly IMapper _mapper;
+        private readonly RepositoryContext _context;
 
         public PersonController(IRepositoryWrapper repository,
             IMapper mapper,
@@ -40,81 +38,6 @@ namespace HereWeGoAgain.Controllers
 
         }
 
-
-        [HttpGet("test")]
-        public IActionResult JustTesting()
-        {
-            // _context.Movies:
-            // ToList() = many
-            // Single()
-            // Where()  = many 
-
-            // LINQ Query Syntax:
-            // LINQ Method Syntax:
-
-            // 1 
-            // normal modelden hepsini okumak. 
-            // var movies = _context.Movies.ToList();
-
-            // 2 
-            // single entity dondurur
-            // var movies = _context.Movies.Single(m => m.Title == "BadTrip");
-
-            // 3 
-            // kosullu veri almak
-            // var movies = _context.Movies.Where(m => m.Title.Contains("a")).ToList();
-
-            // 4
-            //var people = _repository.Person.FindByCondition(t => t.Role == "actor");
-
-            //var peopleTest = _context.Persons.Select(p => p.Role == "actor").ToList();
-
-
-
-            // 5
-            //    var testing = _context.Persons
-            //        .Select( p => new { eg = p.Role });
-            /*
-              OUTPUT: 
-                0	
-                eg:	"Uber Driver"
-                1	
-                eg:	"Actor"
-                2	
-                eg:	"Actor"
-                3	
-                eg:	"Actor"             
-             
-            */
-            /*
-            var testObject = _context.Persons.Where(p => p.Name.Contains("Leo")).Any(c => c.)
-                .Include(mp => mp.MoviePersons);
-            */
-
-
-            /*
-            var testObject = from person in _context.Persons
-                             where person.Role == "Actor"
-                             select person.PersonId;
-
-            var secondTestObject = _context.Persons
-                .Where(p => p.Role == "Uber Driver")
-                .Select(s => new { s.Role, s.PersonId, s.From });
-
-            var thirdTestObject = _context.Persons
-                .Where(p => p.Name.Contains("Leo"))
-                .Select(s => new { s.Name});
-            */
-
-
-            var justATest = _repository.Person;
-
-
-
-
-            return Ok(justATest);
-        }
-
         [HttpGet]
         public IActionResult GetAllPeople()
         {
@@ -122,8 +45,9 @@ namespace HereWeGoAgain.Controllers
             {
                 var people = _repository.Person.GetAllPersons();
 
-                var peopleResult = _mapper.Map<IEnumerable<PersonDto>>(people);
+                // is null control necessary ? test it. 
 
+                var peopleResult = _mapper.Map<IEnumerable<PersonDto>>(people);
                 return Ok(peopleResult);
             }
             catch (Exception)
@@ -136,51 +60,30 @@ namespace HereWeGoAgain.Controllers
         public IActionResult GetPersonById(Guid id)
         {
             var person = _repository.Person.GetPersonById(id);
+
             if (person == null)
             {
                 return NotFound();
             }
 
-            return Ok(person);
+            var personResult = _mapper.Map<PersonDto>(person);
+            return Ok(personResult);
         }
-
-
 
         // TODO: ICollection field iceren modelleri DTO'ya map etmek. 
         [HttpGet("{id}/movie")]
         public IActionResult GetPersonWithDetails(Guid id)
         {
-            /* var person = _repository.Movie.FindByCondition(t => t.MoviePersons.Any(mp => mp.PersonId == id))
-                 .Include(t => t.MoviePersons)
-                 .Select(t => new { 
-                 t.Title,
-                 t.Year
-                 })
-                 .ToList();
-           
-            if (person == null)
-            {
-                return NotFound();
-            }*/
-
-            /*
-                SELECT mydb.movie.Title FROM mydb.person
-                INNER JOIN mydb.movieperson ON mydb.movieperson.PersonId = mydb.person.PersonId
-                INNER JOIN mydb.movie ON mydb.movieperson.MovieId = mydb.movie.MovieId
-            */
-
-            // https://localhost:44368/api/person/bcabe08f-a1fa-454d-aa86-f5581cb6637e/movie 
             try
             {
-                var detailedPerson = _repository.Person.FindByCondition(t => t.MoviePersons.Any(t => t.PersonId == id))
-                    .Include(x => x.MoviePersons).ThenInclude(x => x.Movie);
+                var detailedPerson = _repository.Person.GetPersonWithDetails(id);
 
                 if (detailedPerson == null)
                 {
                     return NotFound();
                 }
 
-                var detailedPersonResult = _mapper.Map<IEnumerable<PersonWithDetails>>(detailedPerson);
+                var detailedPersonResult = _mapper.Map<PersonWithDetails>(detailedPerson);
 
                 return Ok(detailedPersonResult);
             }
@@ -190,7 +93,6 @@ namespace HereWeGoAgain.Controllers
             }
         }
 
-        // NOT COMPLETE 
         [HttpPost]
         public IActionResult CreatePerson([FromBody] PersonForCreationDto person)
         {
@@ -256,14 +158,12 @@ namespace HereWeGoAgain.Controllers
             }
         }
 
-
-
-        [HttpPut("{id}")]
+        // Testing 
+        [HttpDelete("{id}")]
         public IActionResult DeletePerson(Guid id)
         {
             try
             {
-
                 var person = _repository.Person.GetPersonById(id);
 
                 if (person == null)
@@ -271,12 +171,13 @@ namespace HereWeGoAgain.Controllers
                     return NotFound();
                 }
 
-                if (_repository.Movie.MoviesByPerson(id).Any())
+                // ?? 
+                if (_repository.Person.FindByCondition(t => t.MoviePersons.Any(t => t.PersonId == id)).Any())
                 {
                     return BadRequest("Cannot delete owner. It has related accounts. Delete those accounts first");
                 }
 
-                _repository.Owner.DeleteOwner(owner);
+                _repository.Person.DeletePerson(person);
                 _repository.Save();
 
                 return NoContent();
@@ -286,7 +187,5 @@ namespace HereWeGoAgain.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
-
-
     }
 }

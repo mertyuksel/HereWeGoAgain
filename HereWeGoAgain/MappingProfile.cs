@@ -15,8 +15,10 @@ namespace HereWeGoAgain
             CreateMap<Person, PersonDto>();
             CreateMap<PersonForCreationDto, Person>();
             CreateMap<PersonForUpdateDto, Person>();
-            CreateMap<Person, PersonWithDetails>().PreserveReferences();
-
+            CreateMap<Person, PersonWithDetails>().PreserveReferences(); // preserve references detaylarina bak. 
+            CreateMap<Movie, MovieDto>();
+            CreateMap<Movie, MovieWithDetails>();
+            CreateMap<MovieForCreationDto, Movie>();
         }
     }
 }
