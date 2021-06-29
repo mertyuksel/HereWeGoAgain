@@ -4,19 +4,9 @@ using Entities;
 using Entities.DataTransferObjects;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-
-// DONE: get all people 
-// DONE: get one person by id 
-// get person with details 
-// create person 
-// update person 
-// delete person 
 
 namespace HereWeGoAgain.Controllers
 {
@@ -26,18 +16,16 @@ namespace HereWeGoAgain.Controllers
     {
         private readonly IRepositoryWrapper _repository;
         private readonly IMapper _mapper;
-        private readonly RepositoryContext _context;
 
-        public PersonController(IRepositoryWrapper repository,
-            IMapper mapper,
-            RepositoryContext context)
+        public PersonController(
+            IRepositoryWrapper repository,
+            IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            _context = context;
-
         }
 
+        // DONE 
         [HttpGet]
         public IActionResult GetAllPeople()
         {
@@ -56,6 +44,7 @@ namespace HereWeGoAgain.Controllers
             }
         }
 
+        // DONE 
         [HttpGet("{id}")]  // [HttpGet("{id}", Name = "OwnerById")]
         public IActionResult GetPersonById(Guid id)
         {
@@ -70,8 +59,9 @@ namespace HereWeGoAgain.Controllers
             return Ok(personResult);
         }
 
-        // TODO: ICollection field iceren modelleri DTO'ya map etmek. 
-        [HttpGet("{id}/movie")]
+        
+        // movie sahip olmayan personlarda 404 veriyor 
+        [HttpGet("{id}/details")]
         public IActionResult GetPersonWithDetails(Guid id)
         {
             try
@@ -92,6 +82,7 @@ namespace HereWeGoAgain.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+
 
         [HttpPost]
         public IActionResult CreatePerson([FromBody] PersonForCreationDto person)
@@ -124,6 +115,7 @@ namespace HereWeGoAgain.Controllers
             }
         }
 
+
         [HttpPut("{id}")]
         public IActionResult UpdateOwner(Guid id, [FromBody] PersonForUpdateDto person)
         {
@@ -131,7 +123,7 @@ namespace HereWeGoAgain.Controllers
             {
                 if (person == null)
                 {
-                    return BadRequest("Owner object is null");
+                    return BadRequest("Person object is null");
                 }
 
                 if (!ModelState.IsValid)
@@ -158,7 +150,6 @@ namespace HereWeGoAgain.Controllers
             }
         }
 
-        // Testing 
         [HttpDelete("{id}")]
         public IActionResult DeletePerson(Guid id)
         {
@@ -174,7 +165,7 @@ namespace HereWeGoAgain.Controllers
                 // ?? 
                 if (_repository.Person.FindByCondition(t => t.MoviePersons.Any(t => t.PersonId == id)).Any())
                 {
-                    return BadRequest("Cannot delete owner. It has related accounts. Delete those accounts first");
+                    return BadRequest("Cannot delete person. It has related movies. Delete those movies first");
                 }
 
                 _repository.Person.DeletePerson(person);

@@ -19,6 +19,7 @@ namespace HereWeGoAgain
             CreateMap<Movie, MovieDto>();
             CreateMap<Movie, MovieWithDetails>();
             CreateMap<MovieForCreationDto, Movie>();
+            CreateMap<MovieForUpdateDto, Movie>();
         }
     }
 }

@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Repository;
 using Entities.DataTransferObjects;
 using Microsoft.EntityFrameworkCore;
 using Entities.Models;
@@ -14,7 +12,7 @@ using Entities.Models;
 namespace HereWeGoAgain.Controllers
 {
     [Route("api/movie")]
-    [ApiController] // tam olarak neye yariyor bi bak ezbere yaptin. 
+    [ApiController]  
     public class MovieController : ControllerBase
     {
         private readonly IRepositoryWrapper _repository;
@@ -31,6 +29,7 @@ namespace HereWeGoAgain.Controllers
             _context = context;
         }
 
+        // DONE 
         [HttpGet]
         public IActionResult GetAllMovies()
         {
@@ -49,6 +48,7 @@ namespace HereWeGoAgain.Controllers
             }
         }
 
+        // DONE 
         [HttpGet("{id}")]
         public IActionResult GetMovieById(Guid id)
         {
@@ -70,18 +70,19 @@ namespace HereWeGoAgain.Controllers
             }
         }
 
+
+        // TODO: try mapping only specific details with another dto!
+        // TODO: cannot get genre. 
+
         [HttpGet("{id}/details")]
         public IActionResult GetMovieByDetails(Guid id)
         {
             try
             {
-                // TODO: cannot get genre fix this. 
                 var movieWithDetail = _repository.Movie.FindByCondition(t => t.MoviePersons.Any(t => t.MovieId == id))
                     .Include(x => x.MoviePersons).ThenInclude(x => x.Person).FirstOrDefault();
 
                 var movieWithDetailResult = _mapper.Map<MovieWithDetails>(movieWithDetail);
-
-                // TODO: Dto eksik ic ice indexleri hepsini map ediyor istediklerimi nasil map ederim bakicam.
 
                 return Ok(movieWithDetail);
             }
@@ -92,10 +93,7 @@ namespace HereWeGoAgain.Controllers
         }
 
 
-
-        // BU KISIM CALISMIYOR 
-        // MODELI ALIYOR AMA SAVE KISMINDA PROBLEM YARATIYOR 
-        // VERIYI EKSIK GONDERIYORUM BUYUK IHT.
+        // ERROR: cannot send proper movie data. 
         [HttpPost]
         public IActionResult CreateMovie([FromBody] MovieForCreationDto movie)
         {
@@ -122,6 +120,72 @@ namespace HereWeGoAgain.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, "Internal Server Error" + ex.Message);
+            }
+        }
+
+        // DONE
+        [HttpPut("{id}")]
+        public IActionResult UpdateMovie(Guid id, [FromBody] MovieForUpdateDto movie)
+        {
+            try
+            {
+                if (movie == null)
+                {
+                    return BadRequest();
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Invalid model object");
+                }
+
+                var movieEntity = _repository.Movie.GetMovieById(id);
+
+                if (movieEntity == null)
+                {
+                    return NotFound();
+                }
+
+                _mapper.Map(movie, movieEntity);
+                _repository.Movie.UpdateMovie(movieEntity);
+                _repository.Save();
+
+                return NoContent();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+
+        // DONE 
+        [HttpDelete("{id}")]
+        public IActionResult DeleteMovie(Guid id)
+        {
+            try
+            {
+                var movie = _repository.Movie.GetMovieById(id);
+
+                if (movie == null)
+                {
+                    return NotFound();
+                }
+
+                // better approach possible ??  
+                if (_repository.Movie.FindByCondition(t => t.MoviePersons.Any(t => t.MovieId == id)).Any())
+                {
+                    return BadRequest("Cannot delete the movie. It has related people. Delete those people first");
+                }
+
+                _repository.Movie.DeleteMovie(movie);
+                _repository.Save();
+
+                return NoContent();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal server error");
             }
         }
     }
