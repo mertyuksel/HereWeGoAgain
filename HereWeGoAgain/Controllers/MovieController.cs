@@ -1,13 +1,11 @@
-﻿using AutoMapper;
-using Contracts;
-using Entities;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Entities.DataTransferObjects;
-using Microsoft.EntityFrameworkCore;
 using Entities.Models;
+using AutoMapper;
+using Contracts;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HereWeGoAgain.Controllers
 {
@@ -17,19 +15,16 @@ namespace HereWeGoAgain.Controllers
     {
         private readonly IRepositoryWrapper _repository;
         private readonly IMapper _mapper;
-        private readonly RepositoryContext _context; // delete this after testing process 
 
         public MovieController(
             IRepositoryWrapper repository,
-            IMapper mapper,
-            RepositoryContext context)
+            IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            _context = context;
         }
 
-        // DONE 
+        // api/movie 
         [HttpGet]
         public IActionResult GetAllMovies()
         {
@@ -48,7 +43,7 @@ namespace HereWeGoAgain.Controllers
             }
         }
 
-        // DONE 
+        // api/movie/id 
         [HttpGet("{id}")]
         public IActionResult GetMovieById(Guid id)
         {
@@ -70,17 +65,18 @@ namespace HereWeGoAgain.Controllers
             }
         }
 
-
-        // TODO: try mapping only specific details with another dto!
-        // TODO: cannot get genre. 
-
+        // api/movie/id/details 
         [HttpGet("{id}/details")]
         public IActionResult GetMovieByDetails(Guid id)
         {
             try
             {
-                var movieWithDetail = _repository.Movie.FindByCondition(t => t.MoviePersons.Any(t => t.MovieId == id))
-                    .Include(x => x.MoviePersons).ThenInclude(x => x.Person).FirstOrDefault();
+                var movieWithDetail = _repository.Movie.GetMovieByDetails(id);
+
+                if (movieWithDetail == null)
+                {
+                    return NotFound();
+                }
 
                 var movieWithDetailResult = _mapper.Map<MovieWithDetails>(movieWithDetail);
 
@@ -93,7 +89,9 @@ namespace HereWeGoAgain.Controllers
         }
 
 
-        // ERROR: cannot send proper movie data. 
+        // ERROR: cannot send proper movie data.
+        // An error occurred while updating the entries
+        // DTO isim problemi olabilir. 
         [HttpPost]
         public IActionResult CreateMovie([FromBody] MovieForCreationDto movie)
         {
@@ -123,7 +121,7 @@ namespace HereWeGoAgain.Controllers
             }
         }
 
-        // DONE
+        // api/movie/id
         [HttpPut("{id}")]
         public IActionResult UpdateMovie(Guid id, [FromBody] MovieForUpdateDto movie)
         {
@@ -159,7 +157,7 @@ namespace HereWeGoAgain.Controllers
         }
 
 
-        // DONE 
+        // api/movie/id 
         [HttpDelete("{id}")]
         public IActionResult DeleteMovie(Guid id)
         {
@@ -172,7 +170,7 @@ namespace HereWeGoAgain.Controllers
                     return NotFound();
                 }
 
-                // better approach possible ??  
+                // better approach ??  
                 if (_repository.Movie.FindByCondition(t => t.MoviePersons.Any(t => t.MovieId == id)).Any())
                 {
                     return BadRequest("Cannot delete the movie. It has related people. Delete those people first");

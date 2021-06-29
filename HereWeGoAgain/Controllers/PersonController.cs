@@ -1,12 +1,45 @@
 ﻿using AutoMapper;
 using Contracts;
-using Entities;
 using Entities.DataTransferObjects;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
+// TODO: create movie tekrar dogru veriler ile test et
+// TODO: try mapping only specific details with another dto! - GetPersonWithDetails GetMovieWithDetails
+// TODO: details kismi yok ise kendileri donsun - movie person
+// TODO: kullanilmayan kutuphane referanslarini sil
+// TODO: MappingProfile da preserve references olayina bak. 
+
+// *** PROJEYLE ILGILI SORULAR *** 
+// GetMovieByDetails() genre table'i include edemedim, null geliyor. 
+// GetPersonWithDetails() -- GetMovieWithDetails() -- detaylari olmayanlari basmiyor 
+// GetAllMovies -- GetAllPeople ==> her db get isleminde null check yapmak gerekir mi ? 
+// Delete islemlerinde aralarinda baglantili verilerden alakali her sey silinmeli mi yoksa sormali mi ? 
+// Creation olayinda otomatik olarak GUID nasil yaratiliyor -- hangi component yonetiyor bu kismi. 
+
+// *** GENEL SORULAR *** 
+// Bir web projesine basladigimda data ile ilgilenen kismi direkt olarak web api olarak mi yazmam gerek 
+// web projesi icerisinde her seyi halletmek soruna yok acar mi ileride. 
+
+// server side validation -- client side validation
+// validation attributelar ile yaptiklarimiz her ikisini de kapsiyor mu arada bir ayrim var mi ? 
+// !ModelState.IsValid = bind edildi + simdi validation zamani gibi mi ? server side mi oluyor 
+// bir web projesinde client side validation sadece frontend de ki javascripttir diyebilir miyiz ? 
+
+// Async methods: bu api asenkron olarak yazilmadi, gercek hayatta bunun bi gecerliligi var mi ? 
+// gercek hayatta butun veritabani islemleri iceren kisimlar asenkrondur diyebilir miyiz ? 
+
+// LinQ da query syntax mi yoksa method syntax mi hangisini tercih etmeli genelde hangisi kullanilir. 
+
+// Db first yaklasim ile baslamis bir proje de migrations kullanmak mumkun mu ? 
+// eger tercih edilmez proje omru boyunca ise db degisiklikleri nasil yonetiliyor.
+
+// Person controller classinda _repository.Person seklinde sorgu yapmak yerine
+// daha kisa yol varsa mesela _repository.Movie den veriye ulasmak kotu gozukur mu ? 
+
 
 namespace HereWeGoAgain.Controllers
 {
@@ -25,7 +58,7 @@ namespace HereWeGoAgain.Controllers
             _mapper = mapper;
         }
 
-        // DONE 
+        // api/person
         [HttpGet]
         public IActionResult GetAllPeople()
         {
@@ -33,7 +66,7 @@ namespace HereWeGoAgain.Controllers
             {
                 var people = _repository.Person.GetAllPersons();
 
-                // is null control necessary ? test it. 
+                // null control necessary ? 
 
                 var peopleResult = _mapper.Map<IEnumerable<PersonDto>>(people);
                 return Ok(peopleResult);
@@ -44,8 +77,8 @@ namespace HereWeGoAgain.Controllers
             }
         }
 
-        // DONE 
-        [HttpGet("{id}")]  // [HttpGet("{id}", Name = "OwnerById")]
+        // api/person/id
+        [HttpGet("{id}", Name = "PersonById")]  
         public IActionResult GetPersonById(Guid id)
         {
             var person = _repository.Person.GetPersonById(id);
@@ -58,9 +91,8 @@ namespace HereWeGoAgain.Controllers
             var personResult = _mapper.Map<PersonDto>(person);
             return Ok(personResult);
         }
-
-        
-        // movie sahip olmayan personlarda 404 veriyor 
+       
+        // api/person/id/details
         [HttpGet("{id}/details")]
         public IActionResult GetPersonWithDetails(Guid id)
         {
@@ -83,7 +115,7 @@ namespace HereWeGoAgain.Controllers
             }
         }
 
-
+        // api/person
         [HttpPost]
         public IActionResult CreatePerson([FromBody] PersonForCreationDto person)
         {
@@ -104,9 +136,9 @@ namespace HereWeGoAgain.Controllers
                 _repository.Person.CreatePerson(personEntity);   
                 _repository.Save();
 
-                var people = _repository.Person.GetAllPersons();
+                var createdPerson = _mapper.Map<PersonDto>(personEntity);
 
-                return Ok(people);
+                return CreatedAtRoute("PersonById", new { id = createdPerson.PersonId }, createdPerson);
             }
             catch (Exception ex)
             {
@@ -115,7 +147,7 @@ namespace HereWeGoAgain.Controllers
             }
         }
 
-
+        // api/person/id
         [HttpPut("{id}")]
         public IActionResult UpdateOwner(Guid id, [FromBody] PersonForUpdateDto person)
         {
@@ -150,6 +182,7 @@ namespace HereWeGoAgain.Controllers
             }
         }
 
+        // api/person/id
         [HttpDelete("{id}")]
         public IActionResult DeletePerson(Guid id)
         {
@@ -162,7 +195,6 @@ namespace HereWeGoAgain.Controllers
                     return NotFound();
                 }
 
-                // ?? 
                 if (_repository.Person.FindByCondition(t => t.MoviePersons.Any(t => t.PersonId == id)).Any())
                 {
                     return BadRequest("Cannot delete person. It has related movies. Delete those movies first");

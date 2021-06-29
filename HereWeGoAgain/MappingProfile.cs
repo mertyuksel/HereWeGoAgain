@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
 using Entities.DataTransferObjects;
 using Entities.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HereWeGoAgain
 {
@@ -13,9 +9,10 @@ namespace HereWeGoAgain
         public MappingProfile()
         {
             CreateMap<Person, PersonDto>();
+            CreateMap<PersonDto,Person>();
             CreateMap<PersonForCreationDto, Person>();
             CreateMap<PersonForUpdateDto, Person>();
-            CreateMap<Person, PersonWithDetails>().PreserveReferences(); // preserve references detaylarina bak. 
+            CreateMap<Person, PersonWithDetails>().PreserveReferences();  
             CreateMap<Movie, MovieDto>();
             CreateMap<Movie, MovieWithDetails>();
             CreateMap<MovieForCreationDto, Movie>();

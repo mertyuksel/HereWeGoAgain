@@ -5,8 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Repository
 {
@@ -29,14 +28,8 @@ namespace Repository
 
         public Movie GetMovieByDetails(Guid movieId)
         {
-            // ?? genre person gibi fieldlarin bos gelmesi -- bunun bir kolayi yok mu. 
-            /*
             return FindByCondition(t => t.MoviePersons.Any(t => t.MovieId == movieId))
-                    .Include(x => x.MoviePersons).ThenInclude(x => x.Movie).FirstOrDefault();
-            */
-           
-            return FindByCondition(t => t.MoviePersons.Any(t => t.MovieId == movieId))
-            .Include(x => x.MoviePersons).ThenInclude(x => x.Movie).FirstOrDefault();
+                   .Include(x => x.MoviePersons).ThenInclude(x => x.Person).FirstOrDefault();
         }
 
         public void CreateMovie(Movie movie)
