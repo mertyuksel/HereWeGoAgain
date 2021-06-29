@@ -7,11 +7,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-// TODO: create movie tekrar dogru veriler ile test et
 // TODO: try mapping only specific details with another dto! - GetPersonWithDetails GetMovieWithDetails
 // TODO: details kismi yok ise kendileri donsun - movie person
 // TODO: kullanilmayan kutuphane referanslarini sil
 // TODO: MappingProfile da preserve references olayina bak. 
+
 
 // *** PROJEYLE ILGILI SORULAR *** 
 // GetMovieByDetails() genre table'i include edemedim, null geliyor. 
@@ -19,6 +19,7 @@ using System.Linq;
 // GetAllMovies -- GetAllPeople ==> her db get isleminde null check yapmak gerekir mi ? 
 // Delete islemlerinde aralarinda baglantili verilerden alakali her sey silinmeli mi yoksa sormali mi ? 
 // Creation olayinda otomatik olarak GUID nasil yaratiliyor -- hangi component yonetiyor bu kismi. 
+
 
 // *** GENEL SORULAR *** 
 // Bir web projesine basladigimda data ile ilgilenen kismi direkt olarak web api olarak mi yazmam gerek 
@@ -40,6 +41,8 @@ using System.Linq;
 // Person controller classinda _repository.Person seklinde sorgu yapmak yerine
 // daha kisa yol varsa mesela _repository.Movie den veriye ulasmak kotu gozukur mu ? 
 
+// [ForeignKey(nameof(Genre))] bu attribute code first yaklasim da veritabanini yaratirken mi gerekli
+// cunku gerekli fieldlari yazdiginda data first yaklasimda varligi yoklugu bi sey degistirmiyor. 
 
 namespace HereWeGoAgain.Controllers
 {

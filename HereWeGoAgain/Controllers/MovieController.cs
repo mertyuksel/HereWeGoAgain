@@ -88,10 +88,7 @@ namespace HereWeGoAgain.Controllers
             }
         }
 
-
-        // ERROR: cannot send proper movie data.
-        // An error occurred while updating the entries
-        // DTO isim problemi olabilir. 
+        // api/movie
         [HttpPost]
         public IActionResult CreateMovie([FromBody] MovieForCreationDto movie)
         {
@@ -99,7 +96,7 @@ namespace HereWeGoAgain.Controllers
             {
                 if (movie == null)
                 {
-                    return BadRequest();
+                    return BadRequest(); 
                 }
 
                 if (!ModelState.IsValid)
@@ -117,7 +114,13 @@ namespace HereWeGoAgain.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Internal Server Error" + ex.Message);
+
+                string innerMessage = (ex.InnerException != null)
+                      ? ex.InnerException.Message
+                      : "";
+
+                return StatusCode(500, "Internal Server Error" + ex.Message + innerMessage);
+
             }
         }
 

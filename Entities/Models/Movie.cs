@@ -10,6 +10,9 @@ namespace Entities.Models
         public Guid MovieId { get; set; }
         public string Title { get; set; }
         public DateTime Year { get; set; }
+        
+        // [ForeignKey(nameof(Genre))]
+        public Guid GenreId { get; set; }
         public Genre Genre { get; set; }
         public ICollection<MoviePerson> MoviePersons { get; set; }
     }
