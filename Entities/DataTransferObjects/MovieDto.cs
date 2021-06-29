@@ -7,5 +7,7 @@ namespace Entities.DataTransferObjects
         public Guid MovieId { get; set; }
         public string Title { get; set; }
         public DateTime Year { get; set; }
+        public Guid GenreId { get; set; }
+
     }
 }

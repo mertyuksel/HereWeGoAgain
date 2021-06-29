@@ -12,7 +12,7 @@ namespace HereWeGoAgain
             CreateMap<PersonDto,Person>();
             CreateMap<PersonForCreationDto, Person>();
             CreateMap<PersonForUpdateDto, Person>();
-            CreateMap<Person, PersonWithDetails>().PreserveReferences();  
+            CreateMap<Person, PersonWithDetails>();
             CreateMap<Movie, MovieDto>();
             CreateMap<Movie, MovieWithDetails>();
             CreateMap<MovieForCreationDto, Movie>();

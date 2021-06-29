@@ -9,17 +9,14 @@ using System.Linq;
 
 // TODO: try mapping only specific details with another dto! - GetPersonWithDetails GetMovieWithDetails
 // TODO: details kismi yok ise kendileri donsun - movie person
-// TODO: kullanilmayan kutuphane referanslarini sil
-// TODO: MappingProfile da preserve references olayina bak. 
-
+// TODO: entityframeworktutorial + code maze + docs EF CORE oku. 
 
 // *** PROJEYLE ILGILI SORULAR *** 
 // GetMovieByDetails() genre table'i include edemedim, null geliyor. 
 // GetPersonWithDetails() -- GetMovieWithDetails() -- detaylari olmayanlari basmiyor 
 // GetAllMovies -- GetAllPeople ==> her db get isleminde null check yapmak gerekir mi ? 
 // Delete islemlerinde aralarinda baglantili verilerden alakali her sey silinmeli mi yoksa sormali mi ? 
-// Creation olayinda otomatik olarak GUID nasil yaratiliyor -- hangi component yonetiyor bu kismi. 
-
+// Creation olayinda otomatik olarak GUID nasil yaratiliyor -- bu kisim ne tarafindan yonetiyor bu kismi. 
 
 // *** GENEL SORULAR *** 
 // Bir web projesine basladigimda data ile ilgilenen kismi direkt olarak web api olarak mi yazmam gerek 
