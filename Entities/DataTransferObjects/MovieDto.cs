@@ -8,6 +8,5 @@ namespace Entities.DataTransferObjects
         public string Title { get; set; }
         public DateTime Year { get; set; }
         public Guid GenreId { get; set; }
-
     }
 }

@@ -108,6 +108,7 @@ namespace HereWeGoAgain.Controllers
                 _repository.Movie.CreateMovie(movieEntity);
                 _repository.Save();
 
+                // yaratilmis olani goster burada hepsini degil CreatedAtRoute ile. 
                 var movies = _repository.Movie.GetAllMovies();
 
                 return Ok(movie);

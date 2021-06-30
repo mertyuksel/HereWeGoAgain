@@ -10,6 +10,8 @@ using System.Linq;
 // TODO: try mapping only specific details with another dto! - GetPersonWithDetails GetMovieWithDetails
 // TODO: details kismi yok ise kendileri donsun - movie person
 // TODO: entityframeworktutorial + code maze + docs EF CORE oku. 
+// TODO: Repository base 
+
 
 // *** PROJEYLE ILGILI SORULAR *** 
 // GetMovieByDetails() genre table'i include edemedim, null geliyor. 
@@ -40,6 +42,9 @@ using System.Linq;
 
 // [ForeignKey(nameof(Genre))] bu attribute code first yaklasim da veritabanini yaratirken mi gerekli
 // cunku gerekli fieldlari yazdiginda data first yaklasimda varligi yoklugu bi sey degistirmiyor. 
+
+// acik kaynak proje onerisi kodlarini okumak icin. 
+
 
 namespace HereWeGoAgain.Controllers
 {
