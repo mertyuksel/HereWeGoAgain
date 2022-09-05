@@ -7,45 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-// TODO: try mapping only specific details with another dto! - GetPersonWithDetails GetMovieWithDetails
-// TODO: details kismi yok ise kendileri donsun - movie person
-// TODO: entityframeworktutorial + code maze + docs EF CORE oku. 
-// TODO: Repository base 
-
-
-// *** PROJEYLE ILGILI SORULAR *** 
-// GetMovieByDetails() genre table'i include edemedim, null geliyor. 
-// GetPersonWithDetails() -- GetMovieWithDetails() -- detaylari olmayanlari basmiyor 
-// GetAllMovies -- GetAllPeople ==> her db get isleminde null check yapmak gerekir mi ? 
-// Delete islemlerinde aralarinda baglantili verilerden alakali her sey silinmeli mi yoksa sormali mi ? 
-// Creation olayinda otomatik olarak GUID nasil yaratiliyor -- bu kisim ne tarafindan yonetiyor bu kismi. 
-
-// *** GENEL SORULAR *** 
-// Bir web projesine basladigimda data ile ilgilenen kismi direkt olarak web api olarak mi yazmam gerek 
-// web projesi icerisinde her seyi halletmek soruna yok acar mi ileride. 
-
-// server side validation -- client side validation
-// validation attributelar ile yaptiklarimiz her ikisini de kapsiyor mu arada bir ayrim var mi ? 
-// !ModelState.IsValid = bind edildi + simdi validation zamani gibi mi ? server side mi oluyor 
-// bir web projesinde client side validation sadece frontend de ki javascripttir diyebilir miyiz ? 
-
-// Async methods: bu api asenkron olarak yazilmadi, gercek hayatta bunun bi gecerliligi var mi ? 
-// gercek hayatta butun veritabani islemleri iceren kisimlar asenkrondur diyebilir miyiz ? 
-
-// LinQ da query syntax mi yoksa method syntax mi hangisini tercih etmeli genelde hangisi kullanilir. 
-
-// Db first yaklasim ile baslamis bir proje de migrations kullanmak mumkun mu ? 
-// eger tercih edilmez proje omru boyunca ise db degisiklikleri nasil yonetiliyor.
-
-// Person controller classinda _repository.Person seklinde sorgu yapmak yerine
-// daha kisa yol varsa mesela _repository.Movie den veriye ulasmak kotu gozukur mu ? 
-
-// [ForeignKey(nameof(Genre))] bu attribute code first yaklasim da veritabanini yaratirken mi gerekli
-// cunku gerekli fieldlari yazdiginda data first yaklasimda varligi yoklugu bi sey degistirmiyor. 
-
-// acik kaynak proje onerisi kodlarini okumak icin. 
-
-
 namespace HereWeGoAgain.Controllers
 {
     [Route("api/person")]
@@ -70,8 +31,6 @@ namespace HereWeGoAgain.Controllers
             try
             {
                 var people = _repository.Person.GetAllPersons();
-
-                // null control necessary ? 
 
                 var peopleResult = _mapper.Map<IEnumerable<PersonDto>>(people);
                 return Ok(peopleResult);

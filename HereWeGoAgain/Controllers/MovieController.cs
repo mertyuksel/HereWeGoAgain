@@ -32,8 +32,6 @@ namespace HereWeGoAgain.Controllers
             {
                 var movies = _repository.Movie.GetAllMovies();
 
-                // null control necessary ?? 
-
                 var moviesResult = _mapper.Map<IEnumerable<MovieDto>>(movies);
                 return Ok(moviesResult);
             }
@@ -108,7 +106,6 @@ namespace HereWeGoAgain.Controllers
                 _repository.Movie.CreateMovie(movieEntity);
                 _repository.Save();
 
-                // yaratilmis olani goster burada hepsini degil CreatedAtRoute ile. 
                 var movies = _repository.Movie.GetAllMovies();
 
                 return Ok(movie);
@@ -174,7 +171,6 @@ namespace HereWeGoAgain.Controllers
                     return NotFound();
                 }
 
-                // better approach ??  
                 if (_repository.Movie.FindByCondition(t => t.MoviePersons.Any(t => t.MovieId == id)).Any())
                 {
                     return BadRequest("Cannot delete the movie. It has related people. Delete those people first");
